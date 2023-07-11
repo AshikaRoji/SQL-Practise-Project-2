@@ -1,0 +1,39 @@
+/*
+inner joins, full/left/right joins
+join by default is inner join
+working on MASTER database
+*/
+
+SELECT  * 
+FROM SQLTutorial.dbo.EmployeeDemographics 
+
+SELECT  * 
+FROM SQLTutorial.dbo.EmployeeSalary 
+
+/*both tables combined using join or inner join - gives all rows with same employeeID from both tables*/
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeDemographics 
+INNER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/*Outer full join - combines all rows in both tables   */
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeDemographics 
+FULL OUTER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/*LEFT OUTER JOIN- Gives all rows present in employeedemographics table plus all rows with common employee id in employeesalary table */
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeDemographics 
+LEFT OUTER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/*RIGHT OUTER JOIN- Gives all rows present in employeesalary table plus all rows with common employee id in employeedemographic table */
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeDemographics 
+RIGHT OUTER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
