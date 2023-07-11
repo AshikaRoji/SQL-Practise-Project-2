@@ -1,0 +1,64 @@
+/* selecting certain columns common in both tables using inner join*/
+
+SELECT EmployeeDemographics.EmployeeID, FirstName, LastName, JobTitle, Salary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+INNER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+
+/*look at select EmployeeSalary*/
+
+SELECT EmployeeSalary.EmployeeID, FirstName, LastName, JobTitle, Salary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+RIGHT OUTER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/*look at select EmployeeDemographics*/
+
+SELECT EmployeeDemographics.EmployeeID, FirstName, LastName, JobTitle, Salary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+RIGHT OUTER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/*look at select EmployeeSalary*/
+
+SELECT EmployeeSalary.EmployeeID, FirstName, LastName, JobTitle, Salary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+LEFT OUTER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/*look at select EmployeeDemographics*/
+
+SELECT EmployeeDemographics.EmployeeID, FirstName, LastName, JobTitle, Salary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+LEFT OUTER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/* USE CASE 1 - Robert is pressuring Michael Scoott to meet his quarterly quota . So Michael comes up with an idea to cut pay 
+of an employee in his branch who is earning highest salary other than Michael himself */
+
+/*Answer is Dwight is going to get a cut in his pay next quarter*/
+
+SELECT EmployeeDemographics.EmployeeID, FirstName,LastName ,Salary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+INNER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE FirstName <> 'Michael'
+ORDER BY Salary DESC
+
+/* USE CASE 2 - Robin made a mistake calculating avg salary of salesman so Chrsitin is going to use SQL to calculate avg salary of salesman*/
+
+SELECT JobTitle, avg(Salary) AS SalesmanAvgSalary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+INNER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE JobTitle='salesman'
+GROUP BY JobTitle
+
+/*OR*/
+
+SELECT avg(Salary) AS SalesmanAvgSalary
+FROM SQLTutorial.dbo.EmployeeDemographics 
+INNER JOIN SQLTutorial.dbo.EmployeeSalary 
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE JobTitle='salesman'
