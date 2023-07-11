@@ -1,0 +1,50 @@
+/*
+Group By , Order By
+*/
+
+SELECT DISTINCT(Gender)
+FROM EmployeeDemographics 
+
+SELECT *
+FROM EmployeeDemographics 
+
+SELECT Gender ,Age , FirstName , COUNT(Gender) AS GenderCount
+FROM EmployeeDemographics 
+GROUP BY Gender,Age,FirstName
+
+SELECT Gender , COUNT(Gender) AS GenderCount
+FROM EmployeeDemographics 
+WHERE Age >30
+GROUP BY Gender
+ORDER BY GenderCount ASC
+
+SELECT Gender , COUNT(Gender) AS GenderCount
+FROM EmployeeDemographics 
+WHERE Age >30
+GROUP BY Gender
+ORDER BY GenderCount DESC
+
+SELECT *
+FROM EmployeeDemographics 
+
+SELECT *
+FROM EmployeeDemographics 
+ORDER BY AGE DESC
+SELECT *
+FROM EmployeeDemographics 
+ORDER BY AGE ASC
+
+SELECT *
+FROM EmployeeDemographics 
+ORDER BY AGE , FirstName
+
+SELECT *
+FROM EmployeeDemographics 
+ORDER BY AGE , FirstName DESC
+
+
+--We can use numbers instead of column names
+
+SELECT *
+FROM EmployeeDemographics 
+ORDER BY 2 ASC , 4 DESC
