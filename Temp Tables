@@ -1,0 +1,58 @@
+/*
+TEMP TABLES -we can use this table multple times 
+we can easily copy data from big tables to temp tables
+it will be easy to do further calculations on the data in the temp table rather than writing the 
+whole query again which yeilded the data on the temp table 
+generally used in stored procedures
+*/
+
+
+CREATE TABLE #Temp_Employee (
+EmployeeID int,
+JobTitle varchar(100),
+Salary int
+)
+
+SELECT *
+FROM #Temp_Employee
+
+/*
+ONE WAY OF INSERTING DATA
+*/
+
+INSERT INTO #Temp_Employee VALUES
+('1001','HR','45000')
+
+/* SECOND AND EASY WAY OF ADDING DATA
+EASY WAY TO ENTER DATA FROM A HUGE TABLE*/
+
+INSERT INTO #Temp_Employee 
+SELECT *
+FROM SQLTutorial.DBO.EmployeeSalary 
+
+
+DROP TABLE IF EXISTS #Temp_Employee2
+
+/*EVERY TIME WE RUN THE BELOW QUERIES THE ABOVE SINGLE DROP 
+QUERY WILL RUN FRIST AND IT WILL DELETE FIRST AND CREATE AGAIN. 
+DROP TABLE IF EXISTS ACTUALLY CHECK IF THAT TABLE IS PRESENT IF PRESENT IT WILL DLETE FIRST AND THEN CREATE ONE
+*/
+
+CREATE TABLE #Temp_Employee2 (
+JobTitle varchar(50),
+EmployeePerJob int,
+AvgAge int,
+AvgSalary int
+)
+
+INSERT INTO #Temp_Employee2
+SELECT JobTitle, COUNT(JobTitle), avg(age), avg(salary)
+from SQLTutorial.dbo.EmployeeDemographics emp
+join SQLTutorial.dbo.EmployeeSalary sal
+on emp.EmployeeID = sal.EmployeeID
+group by JobTitle
+
+SELECT *
+FROM #Temp_Employee2
+
+
