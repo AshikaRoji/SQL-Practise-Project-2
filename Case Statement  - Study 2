@@ -1,0 +1,30 @@
+/*
+Michael Scott see that there has been a raise in sales this month and has decided to give increment to all employees.
+As salesman worked their best this month to bring sales they are going to recieve high pay.
+write a query for the same?
+*/
+
+
+SELECT FirstName, LastName, JobTitle, Salary ,
+CASE	
+	WHEN JobTitle ='Salesman' THEN SALARY + (SALARY * 0.10)
+	WHEN JobTitle ='Accountant' THEN SALARY + (SALARY * 0.05)
+	WHEN JobTitle ='HR' THEN SALARY + (SALARY * 0.00001)
+	ELSE SALARY + (SALARY*0.03)
+END AS SalaryAfterRaise
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+OUTPUT
+-----------
+
+Jim	Halpert	Salesman	45000	49500.00000
+Pam	Beasley	Receptionist	36000	37080.00000
+Dwight	Schrute	Salesman	63000	69300.00000
+Angela	Martin	Accountant	47000	49350.00000
+Toby	Flenderson	HR	50000	50000.50000
+Michael	Scott	Regional Manager	65000	66950.00000
+Meredith	Palmer	Supplier Relations	41000	42230.00000
+Stanley	Hudson	Salesman	48000	52800.00000
+Kevin	Malone	Accountant	42000	44100.00000
