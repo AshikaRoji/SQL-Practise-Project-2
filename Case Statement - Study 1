@@ -1,0 +1,87 @@
+/* 
+Case Statement 
+*/
+
+SELECT FirstName , LastName, Age,
+CASE
+	WHEN Age >30 THEN 'OLD'
+	WHEN Age BETWEEN 27 AND 30 THEN 'YOUNG'
+	ELSE 'BABY'
+END 
+
+FROM SQLTutorial.dbo.EmployeeDemographics
+WHERE Age is NOT NULL
+ORDER BY Age
+
+OUTPUT
+-----------------------
+
+Ryan	Howard	26	BABY
+Dwight	Schrute	29	YOUNG
+Jim	Halpert	30	YOUNG
+Pam	Beasley	30	YOUNG
+Angela	Martin	31	OLD
+Kevin	Malone	31	OLD
+Toby	Flenderson	32	OLD
+Meredith	Palmer	32	OLD
+Michael	Scott	35	OLD
+Stanley	Hudson	38	OLD
+
+-------------------------------------------------------------
+SEE CASE STATEMENT : 
+  
+SELECT FirstName , LastName, Age,
+CASE
+	WHEN Age >30 THEN 'OLD'
+	WHEN Age =38 THEN 'STANLEY'
+	ELSE 'BABY'
+END 
+
+FROM SQLTutorial.dbo.EmployeeDemographics
+WHERE Age is NOT NULL
+ORDER BY Age
+
+OUTPUT
+-------------
+
+Ryan	Howard	26	BABY
+Dwight	Schrute	29	BABY
+Jim	Halpert	30	BABY
+Pam	Beasley	30	BABY
+Angela	Martin	31	OLD
+Kevin	Malone	31	OLD
+Toby	Flenderson	32	OLD
+Meredith	Palmer	32	OLD
+Michael	Scott	35	OLD
+------------------------
+Stanley	Hudson	38	OLD //SEE THE DIFFERENCE (ALREADY 1ST STATEMENT EXECUTED SO 2ND STATEMENT WONT BE CONSIDERED)
+---------------------------
+
+SEE THIS CASE STATEMENT : COMPARE WITH THE ABOVE
+
+  SELECT FirstName , LastName, Age,
+CASE
+	WHEN Age =38 THEN 'STANLEY'
+	WHEN Age >30 THEN 'OLD'
+	ELSE 'BABY'
+END 
+
+FROM SQLTutorial.dbo.EmployeeDemographics
+WHERE Age is NOT NULL
+ORDER BY Age
+  
+OUTPUT
+------------
+
+Ryan	Howard	26	BABY
+Dwight	Schrute	29	BABY
+Jim	Halpert	30	BABY
+Pam	Beasley	30	BABY
+Angela	Martin	31	OLD
+Kevin	Malone	31	OLD
+Toby	Flenderson	32	OLD
+Meredith	Palmer	32	OLD
+Michael	Scott	35	OLD
+----------------------
+Stanley	Hudson	38	STANLEY //SEE THE DIFFERENCE
+---------------------------
