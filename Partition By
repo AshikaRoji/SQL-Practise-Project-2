@@ -1,0 +1,28 @@
+/*
+PARTITION BY
+*/
+
+SELECT *
+FROM SQLTutorial.DBO.EmployeeDemographics 
+
+SELECT *
+FROM SQLTutorial.DBO.EmployeeSalary 
+
+SELECT FirstName ,LastName,Gender ,Salary , 
+count(gender) OVER (PARTITION BY GENDER ) AS TotalGender
+FROM SQLTutorial.DBO.EmployeeDemographics Demo
+JOIN SQLTutorial.DBO.EmployeeSalary Sal
+ON Demo.EmployeeID = Sal.EmployeeID
+
+
+OUTPUT
+-------
+
+Pam	Beasley	Female	36000	3
+Angela	Martin	Female	47000	3
+Meredith	Palmer	Female	41000	3
+Jim	Halpert	Male	45000	5
+Stanley	Hudson	Male	48000	5
+Kevin	Malone	Male	42000	5
+Michael	Scott	Male	65000	5
+Dwight	Schrute	Male	63000	5
