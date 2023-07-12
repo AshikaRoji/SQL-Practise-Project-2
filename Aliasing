@@ -1,0 +1,31 @@
+/*
+Aliasing Column Names
+*/
+
+SELECT FirstName + ' ' + LastName AS FullName
+FROM SQLTutorial.DBO.EmployeeDemographics
+
+/*
+Aliasing Table Names
+*/
+
+SELECT DEMO.FirstName
+FROM SQLTutorial.DBO.EmployeeDemographics AS DEMO
+
+SELECT DEMO.FirstName, SAL.Salary
+FROM SQLTutorial.DBO.EmployeeDemographics AS DEMO
+JOIN SQLTutorial.DBO.EmployeeSalary AS SAL
+ON DEMO.EmployeeID = SAL.EmployeeID
+
+/* 
+Aliasing on 3 Tables
+*/
+
+SELECT DEMO.EmployeeID, DEMO.FirstName, DEMO.LastName,SAL.JobTitle,WARE.Age
+FROM SQLTutorial.DBO.EmployeeDemographics AS DEMO
+LEFT JOIN SQLTutorial.DBO.EmployeeSalary AS SAL
+ON DEMO.EmployeeID = SAL.EmployeeID
+LEFT JOIN SQLTutorial.DBO.WareHouseEmployeeDemographics AS WARE
+ON DEMO.EmployeeID = WARE.EmployeeId
+
+----------------------------------------------------------------------------------------
