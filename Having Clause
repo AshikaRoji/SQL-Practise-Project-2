@@ -1,0 +1,64 @@
+/*
+Using Having Clause
+we are going to group all jobtitles together with their count and then find out count(jobtitle)>1
+*/
+
+SELECT JobTitle , Count(JobTitle) AS CountOfJobTitle
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE Count(JobTitle) > 1
+GROUP BY JobTitle
+
+ERROR : THe above query will give you error :  
+An aggregate may not appear in the WHERE clause unless it is in a subquery contained in a 
+HAVING clause or a select list, and the column being aggregated is an outer reference.
+
+Another wrong Query :
+
+SELECT JobTitle , Count(JobTitle) AS CountOfJobTitle
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+HAVING Count(JobTitle) > 1
+GROUP BY JobTitle
+
+The above query gives error because we cannot use having clause unless the aggregate function works first
+
+Incorrect syntax near the keyword 'GROUP'.
+
+CORRECTED QUERY:
+
+SELECT JobTitle , Count(JobTitle) AS CountOfJobTitle
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+GROUP BY JobTitle
+HAVING Count(JobTitle) > 1
+ORDER BY COUNT(JobTitle)
+
+OUTPUT
+--------
+
+Accountant	2
+Salesman	3
+
+---------------------------------------------------------------------------
+
+
+Find Abg Salary
+
+SELECT JobTitle , AVG(Salary) AS AvgSalary
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+GROUP BY JobTitle
+HAVING Avg(Salary) > 45000
+ORDER BY Avg(Salary)
+
+OUTPUT
+---------
+HR	50000
+Salesman	52000
+Regional Manager	65000
