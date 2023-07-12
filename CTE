@@ -1,0 +1,20 @@
+/*
+Common Table Expression (CTE) - Basically creating a new table or space 
+for a queried table data which can be queried for later purpose
+*/
+
+WITH CTE_Employee AS (
+SELECT FirstName ,LastName,Gender ,Salary , 
+count(gender) OVER (PARTITION BY GENDER ) AS TotalGender,
+avg(Salary) OVER (PARTITION BY Salary) as	AvgSalary
+FROM SQLTutorial.DBO.EmployeeDemographics Demo
+JOIN SQLTutorial.DBO.EmployeeSalary Sal
+ON Demo.EmployeeID = Sal.EmployeeID
+WHERE Salary > '45000' 
+)
+SELECT *
+FROM CTE_Employee
+
+/*
+WE HAVE TO WRITE THE SELECT CTE statement along with the main query AND THEN HIT EXECUTE
+*/
