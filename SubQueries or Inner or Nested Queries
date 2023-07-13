@@ -1,0 +1,39 @@
+/*
+SubQueries - nested queries or Inner Queries - a query within another query
+*/
+
+SELECT *
+FROM EmployeeSalary
+
+--Subqery in Select
+
+SELECT EmployeeID,Salary, (SELECT avg(salary) FROM EmployeeSalary) AS AvgSal
+FROM EmployeeSalary
+
+--How to do it with Partition 
+
+SELECT EmployeeID,Salary, Avg(Salary) over () AS AvgSal
+FROM EmployeeSalary
+
+--why subquery doesnt work for group by
+
+SELECT EmployeeID,Salary, Avg(Salary)  AS AvgSal
+FROM EmployeeSalary
+GROUP BY EmployeeId, Salary 
+Order By  1, 2
+
+--SubQuery  in From Statemet --a temp table or CTE is more efficient in this case
+
+SELECT a.EmployeeID , AvgSal
+FROM (SELECT EmployeeID, Salary, Avg(Salary) over () AS AvgSal
+      FROM EmployeeSalary) a
+
+
+--Subquery in Where
+
+SELECT EmployeeID,JobTitle, Salary
+FROM EmployeeSalary
+WHERE EmployeeID in (
+	Select EmployeeID
+	from EmployeeDemographics 
+	where age > 30 )
