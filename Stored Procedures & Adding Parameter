@@ -1,0 +1,75 @@
+/*
+Stored Procedure - Group of SQL statements created AND STORED IN DATABASE .accespts inout parameters
+single stored procedures can be used by several users and we can use different inpout data.
+reduces traffic ,increase performance,if we modify that stored procedure everyone using that will get the update
+*/
+
+CREATE PROCEDURE TEST
+AS
+SELECT *
+FROM EmployeeDemographics
+------------------------------------------
+EXEC TEST
+------------------------------------------
+CREATE PROCEDURE Temp_Employee
+AS
+CREATE TABLE #Temp_Employee (
+JobTitle varchar(50),
+EmployeePerJob int,
+AvgAge int,
+AvgSalary int
+)
+
+INSERT INTO #Temp_Employee
+SELECT JobTitle, COUNT(JobTitle), avg(age), avg(salary)
+from SQLTutorial.dbo.EmployeeDemographics emp
+join SQLTutorial.dbo.EmployeeSalary sal
+on emp.EmployeeID = sal.EmployeeID
+group by JobTitle
+SELECT * 
+FROM #Temp_Employee
+--------------------------------------------
+EXEC Temp_Employee 
+--------------------------------------------
+
+/*run the below query after modiying the stored procedure by right clicking on stored procedure Temp_Employee */
+
+EXEC Temp_Employee @JobTitle ='Accountant'
+
+-------------------------------------------------
+/* below is the query of modify stored procedure when you click modify */
+/* adding paramater @JobTitle : this paramter will help us to specify an input for the stored procedure 
+so we get a specific result when executing this stored procedure */
+
+USE [SQLTutorial]
+GO
+/****** Object:  StoredProcedure [dbo].[Temp_Employee]    Script Date: 7/13/2023 9:24:29 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[Temp_Employee]
+@JobTitle varchar(100) ----------> this is the added input parameter
+AS
+CREATE TABLE #Temp_Employee (
+JobTitle varchar(50),
+EmployeePerJob int,
+AvgAge int,
+AvgSalary int
+)
+
+INSERT INTO #Temp_Employee
+SELECT JobTitle, COUNT(JobTitle), avg(age), avg(salary)
+from SQLTutorial.dbo.EmployeeDemographics emp
+join SQLTutorial.dbo.EmployeeSalary sal
+on emp.EmployeeID = sal.EmployeeID
+WHERE JobTitle=@JobTitle ---------->specifiy here as well
+group by JobTitle
+
+SELECT * 
+FROM #Temp_Employee
+
+--------------------------------------------
+
+once modified execute the stored procedure with the specific jobtitle you want. see above query.
